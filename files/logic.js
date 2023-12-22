@@ -2,8 +2,6 @@
 
 // A start button that when clicked a timer starts and the first question appears.
 
-
-
 // Questions contain buttons for each answer.
 // When answer is clicked, the next question appears
 // If the answer clicked was incorrect then subtract time from the clock
@@ -18,7 +16,54 @@
 //set of answers
 //which answer is correct
 
+const startButton = document.getElementById('start')
+const questionContainerElement = document.getElementById('questions')
+const questionElement = document.getElementById('question')
+
+const questionShuffle, currentQIndex
+
+startButton.addEventListener('click', startQuiz)
+
+function startQuiz(){
+    console.log('Started quiz')
+    startButton.classList.add('hide')
+    questionShuffle = questions.sort(()=> Math.random()-.5)
+    currentQIndex = 0
+    questionContainerElement.classList.remove('hide')
+    changeQuestion()
+}
+
+function changeQuestion(){
+  showQuestion(questionShuffle[currentQIndex])
+}
+
+{
+  
+  document.querySelector("question-title", question)("choices",options);
+  const timer = function() {
+    var minute = 3;
+    var sec = 60;
+    setInterval(function() {
+      document.getElementById("timer").innerHTML = minute + ":" + sec;
+      sec--;
+  
+      if (sec == 00) {
+        minute--;
+        sec = 60;
+  
+        if (minute == 0) {
+          minute = 3;
+        }
+      }
+    }, 1000);
+  }
+  You have: <span id="timer">3:00</span>!
+  //must add function for when timer ends
+  //remove time when wrong answer
+}
+
 //landing page
+
 //explanation of quiz
 //start button
 
