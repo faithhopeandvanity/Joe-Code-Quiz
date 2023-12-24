@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Coding Quiz</title>
+        <title>Quiz</title>
 
         <link rel="stylesheet" href="./assets/css/styles.css" />
     </head>
@@ -16,21 +16,23 @@
 
         <div class="wrapper">
             <div id="start-screen" class="start">
-                <h1>Coding Quiz Challenge</h1>
+                <h1>Joe's Quiz Challenge</h1>
                 <p>
-                    Try to answer the following code-related questions within
-                    the time limit. Keep in mind that incorrect answers will
-                    penalize your score/time by ten seconds!
+                    Try to answer the following questions within the time limit.
+                    Keep in mind that incorrect answers will penalize your
+                    score/time by ten seconds!
                 </p>
-                <button id="start">Start Quiz</button>
+                <button id="start" onclick="parentNode.remove()">
+                    Start Quiz
+                </button>
             </div>
-
-            <div class = "question-container">
-            <div id="questions" class="hide">
-                <h2 id="question-title"></h2>
-                <div id="choices" class="choices"></div>
+            <!-- added the onclick to remove the start page upon clicking -->
+            <div class="question-container">
+                <div id="questions" class="hide">
+                    <h2 id="question-title"></h2>
+                    <div id="choices" class="choices"></div>
+                </div>
             </div>
-        </div>
 
             <div id="end-screen" class="hide">
                 <h2>All done!</h2>

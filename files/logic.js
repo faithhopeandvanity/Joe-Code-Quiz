@@ -16,6 +16,8 @@
 //set of answers
 //which answer is correct
 
+var score = 0
+
 const startButton = document.getElementById('start')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
@@ -70,7 +72,7 @@ function chooseAnswer(e){
       document.getElementById("timer").innerHTML = minute + ":" + sec;
       sec--;
   
-      if (sec == 00) {
+      if (sec == 0) {
         minute--;
         sec = 60;
   
@@ -80,7 +82,7 @@ function chooseAnswer(e){
       }
     }, 1000);
   }
-  You have: <span id="timer">3:00</span>!
+  // You have: <span id="timer">3:00</span>;
   //must add function for when timer ends
   //remove time when wrong answer
 }
