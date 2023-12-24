@@ -17,10 +17,10 @@
 //which answer is correct
 
 const startButton = document.getElementById('start')
-const questionContainerElement = document.getElementById('questions')
+const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 
-const questionShuffle, currentQIndex
+let questionShuffle, currentQIndex
 
 startButton.addEventListener('click', startQuiz)
 
@@ -34,7 +34,30 @@ function startQuiz(){
 }
 
 function changeQuestion(){
+  // function resetState()
   showQuestion(questionShuffle[currentQIndex])
+}
+
+function showQuestion(question){
+  questionElement.innerText = question.question
+  question.answers.array.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct){
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', chooseAnswer)
+    answerBtnsElement.appendChild(button)
+  });
+}
+
+// function resetState(){
+  
+// }
+
+function chooseAnswer(e){
+
 }
 
 {
