@@ -1,7 +1,5 @@
 // Create a code quiz that contains the following requirements:
-
 // A start button that when clicked a timer starts and the first question appears.
-
 // Questions contain buttons for each answer.
 // When answer is clicked, the next question appears
 // If the answer clicked was incorrect then subtract time from the clock
@@ -10,81 +8,80 @@
 // When the game ends, it should display their score and give the user the ability to save their initials and their score
 // Mock-Up
 
-//set of questions --> array of objects
-//each needs:
-//text
-//set of answers
-//which answer is correct
+var score = 0;
 
-var score = 0
+const startButton = document.getElementById("start");
+const questionContainerElement = document.getElementById("question-container");
+const questionElement = document.getElementById("question");
 
-const startButton = document.getElementById('start')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
+let questionShuffle, currentQIndex;
 
-let questionShuffle, currentQIndex
+startButton.addEventListener("click", startQuiz);
 
-startButton.addEventListener('click', startQuiz)
-
-function startQuiz(){
-    console.log('Started quiz')
-    startButton.classList.add('hide')
-    questionShuffle = questions.sort(()=> Math.random()-.5)
-    currentQIndex = 0
-    questionContainerElement.classList.remove('hide')
-    changeQuestion()
+function startQuiz() {
+    console.log("Started quiz");
+    startButton.classList.add("hide");
+    questionShuffle = questions.sort(() => Math.random() - 0.5);
+    currentQIndex = 0;
+    questionContainerElement.classList.remove("hide");
+    changeQuestion();
 }
 
-function changeQuestion(){
-  // function resetState()
-  showQuestion(questionShuffle[currentQIndex])
+function changeQuestion() {
+    // function resetState()
+    showQuestion(questionShuffle[currentQIndex]);
 }
 
-function showQuestion(question){
-  questionElement.innerText = question.question
-  question.answers.array.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    if (answer.correct){
-      button.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', chooseAnswer)
-    answerBtnsElement.appendChild(button)
-  });
+function showQuestion(question) {
+    questionElement.innerText = question.question;
+    question.answers.array.forEach((answer) => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", chooseAnswer);
+        answerBtnsElement.appendChild(button);
+    });
+}
+
+//WIP
+if (entered??? === options[answer]){
+  score++
+}
+else {
+  //time -10
 }
 
 // function resetState(){
-  
+
 // }
 
-function chooseAnswer(e){
-
-}
+function chooseAnswer(e) {}
 
 {
-  
-  document.querySelector("question-title", question)("choices",options);
-  const timer = function() {
-    var minute = 3;
-    var sec = 60;
-    setInterval(function() {
-      document.getElementById("timer").innerHTML = minute + ":" + sec;
-      sec--;
-  
-      if (sec == 0) {
-        minute--;
-        sec = 60;
-  
-        if (minute == 0) {
-          minute = 3;
-        }
-      }
-    }, 1000);
-  }
-  // You have: <span id="timer">3:00</span>;
-  //must add function for when timer ends
-  //remove time when wrong answer
+    document.querySelector("question-title", question)("choices", options);
+    const timer = function () {
+        var minute = 3;
+        var sec = 60;
+        setInterval(function () {
+            document.getElementById("timer").innerHTML = minute + ":" + sec;
+            sec--;
+
+            if (sec == 0) {
+                minute--;
+                sec = 60;
+
+                if (minute == 0) {
+                    minute = 3;
+                }
+            }
+        }, 1000);
+    };
+    // You have: <span id="timer">3:00</span>;
+    //must add function for when timer ends
+    //remove time when wrong answer
 }
 
 //landing page
@@ -115,3 +112,5 @@ function chooseAnswer(e){
 //user is taken to the high scores page
 //high scores are listed, sorted highest-lowest
 //user has option to take quiz again
+
+getElementById('final-score') = score
