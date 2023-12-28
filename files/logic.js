@@ -1,10 +1,8 @@
-// Create a code quiz that contains the following requirements:
 // A start button that when clicked a timer starts and the first question appears.
 // Questions contain buttons for each answer.
 // When answer is clicked, the next question appears
 // If the answer clicked was incorrect then subtract time from the clock
 // The quiz should end when all questions are answered or the timer reaches 0.
-
 // When the game ends, it should display their score and give the user the ability to save their initials and their score
 // Mock-Up
 
@@ -13,14 +11,30 @@ var score = 0;
 const startButton = document.getElementById("start");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
+const answerBtnsElement = document.getElementById("choices")
 
 let questionShuffle, currentQIndex;
 
-startButton.addEventListener("click", startQuiz);
+// const startingMins = 3
+// let time = (startingMins*60)
+// const countdownEl = document.getElementById('time');
+// function updateCountdown(){
+//     const minutes = Math.floor(time/60);
+//     let seconds = time%60;
+//     seconds = seconds<10 ; '0'+seconds ; seconds;
+//     countdownEl.innerHTML=`${minutes}: ${seconds}`;
+//     time--
+// }
+
+// startButton.onclick = ()=>(
+//     "wrapper".classList.remove("start-screen"))
+//     startQuiz
+
 
 function startQuiz() {
     console.log("Started quiz");
-    startButton.classList.add("hide");
+    button.getElementById("start-btn").addEventListener("click");
+    // startButton.classList.add("hide");
     questionShuffle = questions.sort(() => Math.random() - 0.5);
     currentQIndex = 0;
     questionContainerElement.classList.remove("hide");
@@ -28,7 +42,7 @@ function startQuiz() {
 }
 
 function changeQuestion() {
-    // function resetState()
+    resetState()
     showQuestion(questionShuffle[currentQIndex]);
 }
 
@@ -40,54 +54,56 @@ function showQuestion(question) {
         button.classList.add("btn");
         if (answer.correct) {
             button.dataset.correct = answer.correct;
+            score++
         }
-        button.addEventListener("click", chooseAnswer);
+        button.getElementsByClassName("btn").addEventListener("click", chooseAnswer);
         answerBtnsElement.appendChild(button);
     });
 }
 
-//WIP
-if (entered??? === options[answer]){
-  score++
+function resetState(){
+    clearStatusClass(document.body)
+while (answerBtnsElement.firstChild){
+    answerBtnsElement.removeChild
+    (answerBtnsElement.firstChild)
 }
-else {
-  //time -10
+}
+//resets available q options
+
+function chooseAnswer(e) {
+    const chosenAnswer  = e.target
+    const correct = chosenAnswer.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerBtnsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
 }
 
-// function resetState(){
+function setStatusClass(element, correct){
+    clearStatusClass(element)
+    if (correct){
+        element.classList.add('correct')
+        alert("Correct!")
+    } else {
+        element.classList.add('wrong')
+        alert("Wrong!")
+    }
+}
+function clearStatusClass(element){
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+}
 
+// if (questionShuffle.length>currentQIndex+1){
+//     display.getElementById("end-screen");
+//     ("questions").hide
 // }
 
-function chooseAnswer(e) {}
-
-{
-    document.querySelector("question-title", question)("choices", options);
-    const timer = function () {
-        var minute = 3;
-        var sec = 60;
-        setInterval(function () {
-            document.getElementById("timer").innerHTML = minute + ":" + sec;
-            sec--;
-
-            if (sec == 0) {
-                minute--;
-                sec = 60;
-
-                if (minute == 0) {
-                    minute = 3;
-                }
-            }
-        }, 1000);
-    };
     // You have: <span id="timer">3:00</span>;
     //must add function for when timer ends
     //remove time when wrong answer
-}
 
-//landing page
 
-//explanation of quiz
-//start button
 
 //click start button --> landing page goes away (use css, target classes in html)
 //timer starts
@@ -114,3 +130,4 @@ function chooseAnswer(e) {}
 //user has option to take quiz again
 
 getElementById('final-score') = score
+

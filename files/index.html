@@ -6,7 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Quiz</title>
 
-        <link rel="stylesheet" href="./assets/css/styles.css" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <script defer src="./assets/js/logic.js"></script>
     </head>
 
     <body>
@@ -22,7 +23,7 @@
                     Keep in mind that incorrect answers will penalize your
                     score/time by ten seconds!
                 </p>
-                <button id="start" onclick="parentNode.remove()">
+                <button id="start-btn" class="start-btn btn">
                     Start Quiz
                 </button>
             </div>
@@ -30,7 +31,12 @@
             <div class="question-container">
                 <div id="questions" class="hide">
                     <h2 id="question-title"></h2>
-                    <div id="choices" class="choices"></div>
+                    <div id="choices" class="choices-grid">
+                        <button class="btn">Choice 1</button>
+                        <button class="btn">Choice 2</button>
+                        <button class="btn">Choice 3</button>
+                        <button class="btn">Choice 4</button>
+                    </div>
                 </div>
             </div>
 
@@ -47,6 +53,6 @@
         </div>
 
         <script src="./assets/js/questions.js"></script>
-        <script src="./assets/js/logic.js"></script>
+        
     </body>
 </html>
