@@ -8,7 +8,7 @@
 var score = 0;
 const startButton = document.getElementById("start-btn");
 const questionContainerElement = document.getElementById("questions");
-const questionElement = document.getElementById("question");
+const questionElement = document.getElementById("question-title");
 const answerBtnsElement = document.getElementById("choices")
 let questionShuffle, currentQIndex;
 
@@ -53,78 +53,123 @@ function showQuestion(question) {
         if (answer.correct) {
             button.dataset.correct = answer.correct;
             score++
+            answerIsCorrect()
         }
+        else {answerIsWrong()
+        time -10}
         button.getElementsByClassName("btn").addEventListener("click", chooseAnswer);
         answerBtnsElement.appendChild(button);
     });
 }
 
-// function resetState(){
-//     clearStatusClass(document.body)
-// while (answerBtnsElement.firstChild){
-//     answerBtnsElement.removeChild
-//     (answerBtnsElement.firstChild)
-// }
-// }
-// //resets available q options
+function resetState(){
+    clearStatusClass(document.body)
+while (answerBtnsElement.firstChild){
+    answerBtnsElement.removeChild
+    (answerBtnsElement.firstChild)
+}
+}
+//resets available q options
 
-// function chooseAnswer(e) {
-//     const chosenAnswer  = e.target
-//     const correct = chosenAnswer.dataset.correct
-//     setStatusClass(document.body, correct)
-//     Array.from(answerBtnsElement.children).forEach(button => {
-//         setStatusClass(button, button.dataset.correct)
-//     })
-// }
+function chooseAnswer(e) {
+    const chosenAnswer  = e.target
+    const correct = chosenAnswer.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerBtnsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+}
 
-// function setStatusClass(element, correct){
-//     clearStatusClass(element)
-//     if (correct){
-//         element.classList.add('correct')
-//         alert("Correct!")
-//     } else {
-//         element.classList.add('wrong')
-//         alert("Wrong!")
-//     }
-// }
-// function clearStatusClass(element){
-//     element.classList.remove('correct')
-//     element.classList.remove('wrong')
-// }
+function setStatusClass(element, correct){
+    clearStatusClass(element)
+    if (correct){
+        element.classList.add('correct')
+        alert("Correct!")
+    } else {
+        element.classList.add('wrong')
+        alert("Wrong!")
+    }
+}
+function clearStatusClass(element){
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+}
 
-// // if (questionShuffle.length>currentQIndex+1){
-// //     display.getElementById("end-screen");
-// //     ("questions").hide
-// // }
+if (questionShuffle.length>currentQIndex+1){
+    display.getElementById("end-screen");
+    ("questions").hide
+}
 
-//     // You have: <span id="timer">3:00</span>;
-//     //must add function for when timer ends
-//     //remove time when wrong answer
+    // You have: <span id="timer">3:00</span>;
+    //must add function for when timer ends
+    //remove time when wrong answer
 
+//click start button --> landing page goes away (use css, target classes in html)
+//timer starts
+//first question and options appear
 
+//for each question:
+//user clicks an answer
+//their choice is compared to the correct answer as stored in the question's object
+//if correct, tell them
+//if incorrect, tell them and subtract time from their timer (adding for correct is a cool extra)
+//optional: play sound for correct/incorrect
+//either way, question goes away after a few seconds and the next question appears
 
-// //click start button --> landing page goes away (use css, target classes in html)
-// //timer starts
-// //first question and options appear
+//after final question
+//timer stops
+//question disappears
+//form appears for user to enter initials
+//display their score
 
-// //for each question:
-// //user clicks an answer
-// //their choice is compared to the correct answer as stored in the question's object
-// //if correct, tell them
-// //if incorrect, tell them and subtract time from their timer (adding for correct is a cool extra)
-// //optional: play sound for correct/incorrect
-// //either way, question goes away after a few seconds and the next question appears
+//user submits form
+//initials and score get stored in local storage
+//user is taken to the high scores page
+//high scores are listed, sorted highest-lowest
+//user has option to take quiz again
 
-// //after final question
-// //timer stops
-// //question disappears
-// //form appears for user to enter initials
-// //display their score
+getElementById('final-score') = score
 
-// //user submits form
-// //initials and score get stored in local storage
-// //user is taken to the high scores page
-// //high scores are listed, sorted highest-lowest
-// //user has option to take quiz again
+let questions = [
+  {
+      question: "In what borough are Putney, Balham and Southfields?",
+      options: ["Camden", "Wandsworth", "Hackney", "Southwark"],
+      answer: 1,
+  },
+  {
+      question: "Which of these is not a Henry James novel?",
+      options: [
+          "The Bostonians",
+          "The Portrait of a Lady",
+          "Vanity Fair",
+          "Washington Square",
+      ],
+      answer: 2,
+  },
+  {
+      question: "Which of these great films is my favourite?",
+      options: [
+          "Career Girls",
+          "Celine and Julie Go Boating",
+          "Lilya 4-ever",
+          "Short Cuts",
+      ],
+      answer: 0,
+  },
+  {
+      question: "Which of these artists that I love have I not seen live?",
+      options: ["Tori Amos", "Liz Phair", "Kero Kero Bonito", "PJ Harvey"],
+      answer: 3,
+  },
+  {
+      question: "Which is the best quiz show?",
+      options: [
+          "Only Connect",
+          "The Chase",
+          "University Challenge",
+          "Who Wants to be a Millionaire?",
+      ],
+      answer: 0,
+  },
+];
 
-// getElementById('final-score') = score
