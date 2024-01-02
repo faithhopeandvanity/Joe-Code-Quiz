@@ -5,105 +5,118 @@
 // The quiz should end when all questions are answered or the timer reaches 0.
 // When the game ends, it should display their score and give the user the ability to save their initials and their score
 // Mock-Up
-var score = 0;
+
 const startButton = document.getElementById("start-btn");
+const startScreen = document.getElementById("start-screen");
 const questionContainerElement = document.getElementById("questions");
 const questionElement = document.getElementById("question-title");
-const answerBtnsElement = document.getElementById("choices")
+const answerBtnsElement = document.getElementById("choices");
 let questionShuffle, currentQIndex;
+let timerId;
+let endElement = document.getElementById("end-screen");
 
-const startingMins = 1.25
 //75 seconds to start
-let time = (startingMins*60)
-const countdownEl = document.getElementById('time');
-function updateCountdown(){
-    const minutes = Math.floor(time/60);
-    let seconds = time%60;
-    seconds = seconds<10 ; '0'+seconds ; seconds;
-    countdownEl.innerHTML=`${minutes}: ${seconds}`;
-    time--
+let time = 5;
+const countdownEl = document.getElementById("time");
+function updateCountdown() {
+    time--;
+    countdownEl.innerHTML = `${time}`;
+    if (time === 0) {
+        console.log("stop time");
+        clearInterval(timerId);
+        endPage();
+    }
 }
 
-startButton.onclick = ()=>(
-    "wrapper".classList.remove("start-screen"))
-    startQuiz
-
+startButton.addEventListener("click", startQuiz);
+function endPage() {
+    endElement.classList.remove("hide");
+    questionContainerElement.classList.add("hide");
+}
 
 function startQuiz() {
     console.log("Started quiz");
-    button.getElementById("start-btn").addEventListener("click");
-    startButton.classList.add("hide");
+    // button.getElementById("start-btn").addEventListener("click");
+    startScreen.classList.add("hide");
     questionShuffle = questions.sort(() => Math.random() - 0.5);
     currentQIndex = 0;
     questionContainerElement.classList.remove("hide");
+    // updateCountdown();
+    countdownEl.innerHTML = `${time}`;
+    timerId = setInterval(updateCountdown, 1000);
     changeQuestion();
 }
 
 function changeQuestion() {
-    resetState()
+    resetState();
     showQuestion(questionShuffle[currentQIndex]);
 }
 
+function answerIsCorrect() {
+    console.log("this is correct");
+}
+function answerIsWrong() {
+    console.log("incorrect");
+}
+
 function showQuestion(question) {
+    console.log(question);
     questionElement.innerText = question.question;
-    question.answers.array.forEach((answer) => {
+    question.options.forEach((answer) => {
         const button = document.createElement("button");
-        button.innerText = answer.text;
+        button.innerText = answer;
         button.classList.add("btn");
         if (answer.correct) {
             button.dataset.correct = answer.correct;
-            score++
-            answerIsCorrect()
+            answerIsCorrect();
+        } else {
+            answerIsWrong();
+            time - 10;
         }
-        else {answerIsWrong()
-        time -10}
-        button.getElementsByClassName("btn").addEventListener("click", chooseAnswer);
+        button.addEventListener("click", chooseAnswer);
         answerBtnsElement.appendChild(button);
     });
 }
 
-function resetState(){
-    clearStatusClass(document.body)
-while (answerBtnsElement.firstChild){
-    answerBtnsElement.removeChild
-    (answerBtnsElement.firstChild)
-}
+function resetState() {
+    clearStatusClass(document.body);
+    while (answerBtnsElement.firstChild) {
+        answerBtnsElement.removeChild(answerBtnsElement.firstChild);
+    }
 }
 //resets available q options
 
 function chooseAnswer(e) {
-    const chosenAnswer  = e.target
-    const correct = chosenAnswer.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerBtnsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
+    const chosenAnswer = e.target;
+    if (questionShuffle.length > currentQIndex + 1) {
+        endPage();
+    }
+    const correct = chosenAnswer.dataset.correct;
+    setStatusClass(document.body, correct);
+    Array.from(answerBtnsElement.children).forEach((button) => {
+        setStatusClass(button, button.dataset.correct);
+    });
 }
 
-function setStatusClass(element, correct){
-    clearStatusClass(element)
-    if (correct){
-        element.classList.add('correct')
-        alert("Correct!")
+function setStatusClass(element, correct) {
+    clearStatusClass(element);
+    if (correct) {
+        element.classList.add("correct");
+        alert("Correct!");
     } else {
-        element.classList.add('wrong')
-        alert("Wrong!")
+        element.classList.add("wrong");
+        alert("Wrong!");
     }
 }
-function clearStatusClass(element){
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
+function clearStatusClass(element) {
+    element.classList.remove("correct");
+    element.classList.remove("wrong");
 }
 
-if (questionShuffle.length>currentQIndex+1){
-    display.getElementById("end-screen");
-    ("questions").hide
-}
-
-    // You have: <span id="timer">3:00</span>;
-    //must add function for when timer ends
-    //remove time when wrong answer
-
+// if (questionShuffle.length>currentQIndex+1){
+//     display.getElementById("end-screen");
+//     ("questions").hide
+// }
 //click start button --> landing page goes away (use css, target classes in html)
 //timer starts
 //first question and options appear
@@ -128,48 +141,47 @@ if (questionShuffle.length>currentQIndex+1){
 //high scores are listed, sorted highest-lowest
 //user has option to take quiz again
 
-getElementById('final-score') = score
+// document.getElementById('final-score') = timeLeft
 
 let questions = [
-  {
-      question: "In what borough are Putney, Balham and Southfields?",
-      options: ["Camden", "Wandsworth", "Hackney", "Southwark"],
-      answer: 1,
-  },
-  {
-      question: "Which of these is not a Henry James novel?",
-      options: [
-          "The Bostonians",
-          "The Portrait of a Lady",
-          "Vanity Fair",
-          "Washington Square",
-      ],
-      answer: 2,
-  },
-  {
-      question: "Which of these great films is my favourite?",
-      options: [
-          "Career Girls",
-          "Celine and Julie Go Boating",
-          "Lilya 4-ever",
-          "Short Cuts",
-      ],
-      answer: 0,
-  },
-  {
-      question: "Which of these artists that I love have I not seen live?",
-      options: ["Tori Amos", "Liz Phair", "Kero Kero Bonito", "PJ Harvey"],
-      answer: 3,
-  },
-  {
-      question: "Which is the best quiz show?",
-      options: [
-          "Only Connect",
-          "The Chase",
-          "University Challenge",
-          "Who Wants to be a Millionaire?",
-      ],
-      answer: 0,
-  },
+    {
+        question: "In what borough are Putney, Balham and Southfields?",
+        options: ["Camden", "Wandsworth", "Hackney", "Southwark"],
+        answer: 1,
+    },
+    {
+        question: "Which of these is not a Henry James novel?",
+        options: [
+            "The Bostonians",
+            "The Portrait of a Lady",
+            "Vanity Fair",
+            "Washington Square",
+        ],
+        answer: 2,
+    },
+    {
+        question: "Which of these great films is my favourite?",
+        options: [
+            "Career Girls",
+            "Celine and Julie Go Boating",
+            "Lilya 4-ever",
+            "Short Cuts",
+        ],
+        answer: 0,
+    },
+    {
+        question: "Which of these artists that I love have I not seen live?",
+        options: ["Tori Amos", "Liz Phair", "Kero Kero Bonito", "PJ Harvey"],
+        answer: 3,
+    },
+    {
+        question: "Which is the best quiz show?",
+        options: [
+            "Only Connect",
+            "The Chase",
+            "University Challenge",
+            "Who Wants to be a Millionaire?",
+        ],
+        answer: 0,
+    },
 ];
-
