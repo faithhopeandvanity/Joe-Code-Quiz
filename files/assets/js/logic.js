@@ -118,7 +118,8 @@ function chooseAnswer(e) {
         //     setStatusClass(button, button.dataset.correct);
         // });
     }
-    questions.splice();
+    // questions.splice(-1);
+    // console.log(questions);
 }
 
 function setStatusClass(element, correct) {
