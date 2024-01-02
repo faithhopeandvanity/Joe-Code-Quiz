@@ -97,15 +97,28 @@ function resetState() {
 
 function chooseAnswer(e) {
     const chosenAnswer = e.target;
-    console.log("answer chosen", chosenAnswer);
-    if (questionShuffle.length > currentQIndex + 1) {
-        endPage();
-    }
+
+    console.log("-------------->", questionShuffle.length, currentQIndex);
+    // if (questionShuffle.length > currentQIndex + 1) {
+    //     endPage();
+    // }
     const correct = chosenAnswer.dataset.correct;
-    setStatusClass(document.body, correct);
-    Array.from(answerBtnsElement.children).forEach((button) => {
-        setStatusClass(button, button.dataset.correct);
-    });
+    console.log(correct);
+    console.log(chosenAnswer);
+    console.log(
+        questions[currentQIndex].options[questions[currentQIndex].answer]
+    );
+    if (
+        e.target.innerText ==
+        questions[currentQIndex].options[questions[currentQIndex].answer]
+    ) {
+        console.log("correct");
+        //     setStatusClass(document.body, correct);
+        // Array.from(answerBtnsElement.children).forEach((button) => {
+        //     setStatusClass(button, button.dataset.correct);
+        // });
+    }
+    questions.splice();
 }
 
 function setStatusClass(element, correct) {
