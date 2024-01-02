@@ -1,10 +1,7 @@
-// A start button that when clicked a timer starts and the first question appears.
-// Questions contain buttons for each answer.
 // When answer is clicked, the next question appears
 // If the answer clicked was incorrect then subtract time from the clock
 // The quiz should end when all questions are answered or the timer reaches 0.
 // When the game ends, it should display their score and give the user the ability to save their initials and their score
-// Mock-Up
 
 const startButton = document.getElementById("start-btn");
 const startScreen = document.getElementById("start-screen");
@@ -15,8 +12,7 @@ let questionShuffle, currentQIndex;
 let timerId;
 let endElement = document.getElementById("end-screen");
 
-//75 seconds to start
-let time = 5;
+let time = 90;
 const countdownEl = document.getElementById("time");
 function updateCountdown() {
     time--;
@@ -66,13 +62,26 @@ function showQuestion(question) {
         const button = document.createElement("button");
         button.innerText = answer;
         button.classList.add("btn");
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-            answerIsCorrect();
-        } else {
-            answerIsWrong();
-            time - 10;
+        for (let i = 0; i < question.options.length; i++) {
+            for (let i = 0; i < questions.length; i++) {
+                const element = questions[i].answer;
+                console.log("looped through array", element);
+                if (question.options[i] === questions[i].answer) {
+                    console.log("checked answers");
+                }
+            }
+            const element = question.options[i];
+            console.log(element);
+            if (question.options[i] === answer) answerIsCorrect();
         }
+
+        // if (answer.answer) {
+        //     button.dataset.answer = answer.answer;
+        //     answerIsCorrect();
+        // } else {
+        //     answerIsWrong();
+        //     time - 10;
+        // }
         button.addEventListener("click", chooseAnswer);
         answerBtnsElement.appendChild(button);
     });
@@ -88,6 +97,7 @@ function resetState() {
 
 function chooseAnswer(e) {
     const chosenAnswer = e.target;
+    console.log("answer chosen", chosenAnswer);
     if (questionShuffle.length > currentQIndex + 1) {
         endPage();
     }
@@ -100,13 +110,13 @@ function chooseAnswer(e) {
 
 function setStatusClass(element, correct) {
     clearStatusClass(element);
-    if (correct) {
-        element.classList.add("correct");
-        alert("Correct!");
-    } else {
-        element.classList.add("wrong");
-        alert("Wrong!");
-    }
+    // if (correct) {
+    //     element.classList.add("correct");
+    //     alert("Correct!");
+    // } else {
+    //     element.classList.add("wrong");
+    //     alert("Wrong!");
+    // }
 }
 function clearStatusClass(element) {
     element.classList.remove("correct");
@@ -117,9 +127,6 @@ function clearStatusClass(element) {
 //     display.getElementById("end-screen");
 //     ("questions").hide
 // }
-//click start button --> landing page goes away (use css, target classes in html)
-//timer starts
-//first question and options appear
 
 //for each question:
 //user clicks an answer
