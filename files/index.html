@@ -9,40 +9,48 @@
         <script defer src="./assets/js/logic.js"></script>
     </head>
     <body>
-        <div class="scores"><a href="highscores.html">View Highscores</a></div>
-        <div class="timer">Time: <span id="time">0</span></div>
-        <div class="wrapper">
-            <div id="start-screen" class="start">
-                <h1>Joe's Quiz Challenge</h1>
-                <p>
-                    Try to answer the following questions about me within the
-                    time limit. Keep in mind that incorrect answers will
-                    penalize your score/time by ten seconds!
-                </p>
-                <button id="start-btn" class="start-btn btn">Start Quiz</button>
+        <div class="container-fluid">
+            <div class="scores">
+                <a href="highscores.html">View Highscores</a>
             </div>
-            <!-- added the onclick to remove the start page upon clicking -->
-            <div class="question-container">
-                <div id="questions" class="hide">
-                    <h2 id="question-title"></h2>
-                    <div id="choices" class="choices-grid">
-                        <button class="btn">Choice 1</button>
-                        <button class="btn">Choice 2</button>
-                        <button class="btn">Choice 3</button>
-                        <button class="btn">Choice 4</button>
+            <div class="timer">Time: <span id="time">0</span></div>
+            <div class="wrapper">
+                <div id="start-screen" class="start">
+                    <h1>Joe's Quiz Challenge</h1>
+                    <p>
+                        Try to answer the following questions about me within
+                        the time limit. Keep in mind that incorrect answers will
+                        penalize your score/time by ten seconds!
+                    </p>
+                    <button id="start-btn" class="start-btn btn">
+                        Start Quiz
+                    </button>
+                </div>
+                <!-- added the onclick to remove the start page upon clicking -->
+                <div class="question-container">
+                    <div id="questions" class="hide">
+                        <h2 id="question-title"></h2>
+                        <div id="choices" class="choices-grid">
+                            <button id="btn1" class="btn">Choice 1</button>
+                            <button id="btn2" class="btn">Choice 2</button>
+                            <button id="btn3" class="btn">Choice 3</button>
+                            <button id="btn4" class="btn">Choice 4</button>
+                        </div>
                     </div>
                 </div>
+                <div id="end-screen" class="hide">
+                    <h2>All done!</h2>
+                    <p>Your final score is <span id="final-score"></span>.</p>
+                    <p>
+                        Enter initials:
+                        <input type="text" id="initials" max="3" />
+                        <button id="submit">Submit</button>
+                    </p>
+                </div>
+                <div id="feedback" class="feedback hide"></div>
+                <div id="highScoresPage" style="display: none;">
+                <h2 class="font-weight-bold">High Scores!</h2></div>
             </div>
-            <div id="end-screen" class="hide">
-                <h2>All done!</h2>
-                <p>Your final score is <span id="final-score"></span>.</p>
-                <p>
-                    Enter initials: <input type="text" id="initials" max="3" />
-                    <button id="submit">Submit</button>
-                </p>
-            </div>
-            <div id="feedback" class="feedback hide"></div>
         </div>
-
     </body>
 </html>

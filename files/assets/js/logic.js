@@ -14,6 +14,7 @@ let endElement = document.getElementById("end-screen");
 
 let time = 90;
 const countdownEl = document.getElementById("time");
+//countdown function
 function updateCountdown() {
     time--;
     countdownEl.innerHTML = `${time}`;
@@ -23,7 +24,7 @@ function updateCountdown() {
         endPage();
     }
 }
-
+//start quiz when button is clicked
 startButton.addEventListener("click", startQuiz);
 function endPage() {
     endElement.classList.remove("hide");
