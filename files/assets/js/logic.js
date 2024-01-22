@@ -1,214 +1,217 @@
-// When answer is clicked, the next question appears
-// If the answer clicked was incorrect then subtract time from the clock
-// The quiz should end when all questions are answered or the timer reaches 0.
-// When the game ends, it should display their score and give the user the ability to save their initials and their score
+var startButton = document.getElementById("start-btn");
+var nextButton = document.getElementById("next-btn");
+var questionContainerEl = document.getElementById("question-container");
+var startContainerEl = document.getElementById("start-screen");
+var questionEl = document.getElementById("question-container");
+var answerButtonsEl = document.getElementById("choices");
+var checkAnswerEl = document.getElementById("check-answer");
+var viewHighScores = document.getElementById("high-scores-link");
+var submitButton = document.getElementById("submit");
+var clearScoreButton = document.getElementById("clearHSBtn");
+//fix next line?
+var initialsField = document.getElementById("player-name");
+var restartButton = document.getElementById("backBtn");
+var scoreField = document.getElementById("player-score");
+var scores = JSON.parse(localStorage.getItem("scores")) || [];
+var timerEl = document.getElementById("timer");
+var timeLeft = 75;
+var timerID;
 
-const startButton = document.getElementById("start-btn");
-const startScreen = document.getElementById("start-screen");
-const questionContainerElement = document.getElementById("questions");
-const questionElement = document.getElementById("question-title");
-const answerBtnsElement = document.getElementById("choices");
-let questionShuffle, currentQIndex;
-let timerId;
-let endElement = document.getElementById("end-screen");
+var shuffledQuestions, currentQuestionIndex;
 
-let time = 90;
-const countdownEl = document.getElementById("time");
-//countdown function
-function updateCountdown() {
-    time--;
-    countdownEl.innerHTML = `${time}`;
-    if (time === 0) {
-        console.log("stop time");
-        clearInterval(timerId);
-        endPage();
+// Start quiz
+startButton.addEventListener("click", startQuiz);
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    setNextQuestion();
+});
+
+// Countdown timer
+function enableTimer() {
+    timeLeft--;
+    timerEl.textContent = "Time: " + timeLeft;
+    if (timeLeft <= 0) {
+        saveScore();
     }
 }
-//start quiz when button is clicked
-startButton.addEventListener("click", startQuiz);
-function endPage() {
-    endElement.classList.remove("hide");
-    questionContainerElement.classList.add("hide");
-}
 
+// Start Quiz
 function startQuiz() {
-    console.log("Started quiz");
-    // button.getElementById("start-btn").addEventListener("click");
-    startScreen.classList.add("hide");
-    questionShuffle = questions.sort(() => Math.random() - 0.5);
-    currentQIndex = 0;
-    questionContainerElement.classList.remove("hide");
-    // updateCountdown();
-    countdownEl.innerHTML = `${time}`;
-    timerId = setInterval(updateCountdown, 1000);
-    changeQuestion();
+    timerID = setInterval(enableTimer, 1000);
+    startContainerEl.classList.add("hide");
+    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+    currentQuestionIndex = 0;
+    questionContainerEl.classList.remove("hide");
+
+    // Timer starts when start button is clicked
+    enableTimer();
+    setNextQuestion();
 }
 
-function changeQuestion() {
+// Move to next question
+function setNextQuestion() {
     resetState();
-    showQuestion(questionShuffle[currentQIndex]);
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
-function answerIsCorrect() {
-    console.log("this is correct");
-}
-function answerIsWrong() {
-    console.log("incorrect");
-}
-
+// Show questions
 function showQuestion(question) {
-    console.log(question);
-    questionElement.innerText = question.question;
-    question.options.forEach((answer) => {
-        const button = document.createElement("button");
-        button.innerText = answer;
+    questionEl.innerText = question.question;
+    question.answers.forEach((answer) => {
+        var button = document.createElement("button");
+        button.innerText = answer.text;
         button.classList.add("btn");
-        for (let i = 0; i < question.options.length; i++) {
-            for (let i = 0; i < questions.length; i++) {
-                const element = questions[i].answer;
-                console.log("looped through array", element);
-                if (question.options[i] === questions[i].answer) {
-                    console.log("checked answers");
-                }
-            }
-            const element = question.options[i];
-            console.log(element);
-            if (question.options[i] === answer) answerIsCorrect();
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
         }
-
-        // if (answer.answer) {
-        //     button.dataset.answer = answer.answer;
-        //     answerIsCorrect();
-        // } else {
-        //     answerIsWrong();
-        //     time - 10;
-        // }
-        button.addEventListener("click", chooseAnswer);
-        answerBtnsElement.appendChild(button);
+        button.addEventListener("click", selectAnswer);
+        answerButtonsEl.appendChild(button);
     });
 }
 
+// Reset state function
 function resetState() {
-    clearStatusClass(document.body);
-    while (answerBtnsElement.firstChild) {
-        answerBtnsElement.removeChild(answerBtnsElement.firstChild);
+    //clearStatusClass(document.body)
+    nextButton.classList.add("hide");
+    checkAnswerEl.classList.add("hide");
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
     }
 }
-//resets available q options
 
-function chooseAnswer(e) {
-    const chosenAnswer = e.target;
-
-    console.log("-------------->", questionShuffle.length, currentQIndex);
-    // if (questionShuffle.length > currentQIndex + 1) {
-    //     endPage();
-    // }
-    const correct = chosenAnswer.dataset.correct;
-    console.log(correct);
-    console.log(chosenAnswer);
-    console.log(
-        questions[currentQIndex].options[questions[currentQIndex].answer]
-    );
-    if (
-        e.target.innerText ==
-        questions[currentQIndex].options[questions[currentQIndex].answer]
-    ) {
-        console.log("correct");
-        //     setStatusClass(document.body, correct);
-        // Array.from(answerBtnsElement.children).forEach((button) => {
-        //     setStatusClass(button, button.dataset.correct);
-        // });
+// Select answer function
+function selectAnswer(e) {
+    var selectedButton = e.target;
+    //console.dir(selectedButton);
+    var correct = selectedButton.dataset.correct;
+    checkAnswerEl.classList.remove("hide");
+    // Check if the answer correct or wrong then show text
+    if (correct) {
+        checkAnswerEl.innerHTML = "Correct!";
+    } else {
+        checkAnswerEl.innerHTML = "Sorry, incorrect!";
+        if (timeLeft <= 10) {
+            timeLeft = 0;
+        } else {
+            // If the aswer is wrong, deduct time by 10
+            timeLeft -= 10;
+        }
     }
-    // questions.splice(-1);
-    // console.log(questions);
+
+    Array.from(answerButtonsEl.children).forEach((button) => {
+        setStatusClass(button, button.dataset.correct);
+    });
+
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove("hide");
+        checkAnswerEl.classList.remove("hide");
+    } else {
+        startButton.classList.remove("hide");
+        saveScore();
+    }
 }
 
+// Show 'right' and 'wrong' colours
 function setStatusClass(element, correct) {
     clearStatusClass(element);
-    // if (correct) {
-    //     element.classList.add("correct");
-    //     alert("Correct!");
-    // } else {
-    //     element.classList.add("wrong");
-    //     alert("Wrong!");
-    // }
+    if (correct) {
+        element.classList.add("correct");
+    } else {
+        element.classList.add("wrong");
+    }
 }
+
+// Remove classes
 function clearStatusClass(element) {
     element.classList.remove("correct");
     element.classList.remove("wrong");
 }
 
-// if (questionShuffle.length>currentQIndex+1){
-//     display.getElementById("end-screen");
-//     ("questions").hide
-// }
+// Save high scores
+function saveScore() {
+    clearInterval(timerID);
+    timerEl.textContent = "Time left: " + timeLeft;
+    setTimeout(function () {
+        //localStorage.setItem("scores", JSON.stringify(scores));
+        questionContainerEl.classList.add("hide");
+        document.getElementById("score-container").classList.remove("hide");
+        document.getElementById("your-score").textContent =
+            "Your final score is " + timeLeft;
+    }, 2000);
+}
 
-//for each question:
-//user clicks an answer
-//their choice is compared to the correct answer as stored in the question's object
-//if correct, tell them
-//if incorrect, tell them and subtract time from their timer (adding for correct is a cool extra)
-//optional: play sound for correct/incorrect
-//either way, question goes away after a few seconds and the next question appears
+var loadHighScores = function () {
+    // Get score from local storage
 
-//after final question
-//timer stops
-//question disappears
-//form appears for user to enter initials
-//display their score
+    if (!savedScores) {
+        return false;
+    }
 
-//user submits form
-//initials and score get stored in local storage
-//user is taken to the high scores page
-//high scores are listed, sorted highest-lowest
-//user has option to take quiz again
+    // Use JSON to convert scores into array
+    savedScores = JSON.parse(savedScores);
+    var initials = document.querySelector("#initials-field").value;
+    var newScore = {
+        score: timeLeft,
+        initials: initials,
+    };
+    //Push new score to established array
+    savedScores.push(newScore);
+    console.log(savedScores);
 
-// document.getElementById('final-score') = timeLeft
+    savedScores.forEach((score) => {
+        initialsField.innerText = score.initials;
+        scoreField.innerText = score.score;
+    });
+};
 
-let questions = [
-    {
-        question: "In what borough are Putney, Balham and Southfields?",
-        options: ["a: Camden", "b: Wandsworth", "c: Hackney", "d: Southwark"],
-        answer: "d: Wandsworth",
-    },
-    {
-        question: "Which of these is not a Henry James novel?",
-        options: [
-            "a: The Bostonians",
-            "b: The Portrait of a Lady",
-            "c: Vanity Fair",
-            "d: Washington Square",
-        ],
-        answer: "c: Vanity Fair",
-    },
-    {
-        question: "Which of these great films is my favourite?",
-        options: [
-            "a: Career Girls",
-            "b: Celine and Julie Go Boating",
-            "c: Lilya 4-ever",
-            "d: Short Cuts",
-        ],
-        answer: "a: Career Girls",
-    },
-    {
-        question: "Which of these artists that I love have I not seen live?",
-        options: [
-            "a: Tori Amos",
-            "b: Liz Phair",
-            "c: Kero Kero Bonito",
-            "d: PJ Harvey",
-        ],
-        answer: "d: PJ Harvey",
-    },
-    {
-        question: "Which is the best quiz show?",
-        options: [
-            "a: Only Connect",
-            "b: The Chase",
-            "c: University Challenge",
-            "d: Who Wants to be a Millionaire?",
-        ],
-        answer: "a: Only Connect",
-    },
-];
+// Show high scores
+function showHighScores(initials) {
+    document.getElementById("highscores").classList.remove("hide");
+    document.getElementById("score-container").classList.add("hide");
+    startContainerEl.classList.add("hide");
+    questionContainerEl.classList.add("hide");
+    if (typeof initials == "string") {
+        var score = {
+            initials,
+            timeLeft,
+        };
+        scores.push(score);
+    }
+
+    var highScoreEl = document.getElementById("highscore");
+    highScoreEl.innerHTML = "";
+    //console.log(scores)
+    for (i = 0; i < scores.length; i++) {
+        var div1 = document.createElement("div");
+        div1.setAttribute("class", "name-div");
+        div1.innerText = scores[i].initials;
+        var div2 = document.createElement("div");
+        div2.setAttribute("class", "score-div");
+        div2.innerText = scores[i].timeLeft;
+
+        highScoreEl.appendChild(div1);
+        highScoreEl.appendChild(div2);
+    }
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+// View high scores link
+viewHighScores.addEventListener("click", showHighScores);
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var initials = document.querySelector("#initials-field").value;
+    showHighScores(initials);
+});
+
+// Restart or reload the page
+restartButton.addEventListener("click", function () {
+    window.location.reload();
+});
+
+// Clear localStorage items
+clearScoreButton.addEventListener("click", function () {
+    localStorage.clear();
+    document.getElementById("highscore").innerHTML = "";
+});

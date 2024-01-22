@@ -6,12 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Quiz</title>
         <link rel="stylesheet" href="./assets/css/style.css" type="text/css" />
-        <script defer src="./assets/js/logic.js"></script>
+        <script src="./assets/js/logic.js"></script>
+        <script src="./assets/js/questions.js"></script>
     </head>
     <body>
         <div class="container-fluid">
             <div class="scores">
-                <a href="highscores.html">View Highscores</a>
+                <a id="high-scores-link">View Highscores</a>
             </div>
             <div class="timer">Time: <span id="time">0</span></div>
             <div class="wrapper">
@@ -19,16 +20,16 @@
                     <h1>Joe's Quiz Challenge</h1>
                     <p>
                         Try to answer the following questions about me within
-                        the time limit. Keep in mind that incorrect answers will
-                        penalize your score/time by ten seconds!
+                        75 seconds. Keep in mind that incorrect answers will
+                        penalize your score/time by ten seconds! Your final score is the time remaining should you finish in time!
                     </p>
                     <button id="start-btn" class="start-btn btn">
                         Start Quiz
                     </button>
                 </div>
                 <!-- added the onclick to remove the start page upon clicking -->
-                <div class="question-container">
-                    <div id="questions" class="hide">
+                <!--fix this container.-->
+                <div id="question-container" class="hide">
                         <h2 id="question-title"></h2>
                         <div id="choices" class="choices-grid">
                             <button id="btn1" class="btn">Choice 1</button>
@@ -36,6 +37,9 @@
                             <button id="btn3" class="btn">Choice 3</button>
                             <button id="btn4" class="btn">Choice 4</button>
                         </div>
+                        <h2 id="check-answer" class="correct-wrong hide"></h2>
+        <div class="controls">
+            <button id="next-btn" class="next-btn hide">Next</button>
                     </div>
                 </div>
                 <div id="end-screen" class="hide">
