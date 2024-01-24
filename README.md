@@ -5,4 +5,6 @@ When you click 'start', you'll be taken to the first question, which is randomis
 
 Your score is the seconds remaining on the timer at the end of the quiz, should you manage to finish it successfully. The highscores page saves scores to local memory and asks you save your score with your name. 
 
+Sound effects, found in .assets/audio folder, will play to tell you if you're right or wrong.
+
 The 'questions' array is contained in the logic.js file.

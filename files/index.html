@@ -1,70 +1,48 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Quiz</title>
-        <link rel="stylesheet" href="./assets/css/style.css" type="text/css" />
-        <script src="./assets/js/logic.js"></script>
-        <script src="./assets/js/questions.js"></script>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="scores">
-                <a id="high-scores-link">View Highscores</a>
-            </div>
-            <div class="timer">Time: <span id="time">0</span></div>
-            <div class="wrapper">
-                <div id="start-screen" class="start">
-                    <h1>Joe's Quiz Challenge</h1>
-                    <p>
-                        Try to answer the following questions about me within
-                        75 seconds. Keep in mind that incorrect answers will
-                        penalize your score/time by ten seconds! Your final score is the time remaining should you finish in time!
-                    </p>
-                    <button id="start-btn" class="start-btn btn">
-                        Start Quiz
-                    </button>
-                </div>
-                <!-- added the onclick to remove the start page upon clicking -->
-                <!--fix this container.-->
-                <div id="question-container" class="hide">
-                        <h2 id="question-title"></h2>
-                        <div id="choices" class="choices-grid">
-                            <button id="btn1" class="btn">Choice 1</button>
-                            <button id="btn2" class="btn">Choice 2</button>
-                            <button id="btn3" class="btn">Choice 3</button>
-                            <button id="btn4" class="btn">Choice 4</button>
-                        </div>
-                        <h2 id="check-answer" class="correct-wrong hide"></h2>
-        <div class="controls">
-            <button id="next-btn" class="next-btn hide">Next</button>
-                    </div>
-                </div>
-                <div id="end-screen" class="hide">
-                    <h2>All done!</h2>
-                    <p>Your final score is <span id="final-score"></span>.</p>
-                    <p>
-                        Enter initials:
-                        <input type="text" id="initials" max="3" />
-                        <button id="submit">Submit</button>
-                    </p>
-                </div>
-                <div id="feedback" class="feedback hide"></div>
-                <div id="highScoresPage" style="display: none">
-                    <h2 class="font-weight-bold">High Scores!</h2>
-                </div>
-                <div id="highScoreList" class="list-group"></div>
-                <p>
-                    <button type="submit" class="btn btn-info" id="backBtn">
-                        Back
-                    </button>
-                    <button type="submit" class="btn btn-info" id="clearHSBtn">
-                        Clear High Scores!
-                    </button>
-                </p>
-            </div>
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Joe's Quiz!</title>
+<!--Link to stylesheet-->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <!--Link to high scores-->
+    <div class="scores"><a href="highscores.html">View High Scores</a></div>
+
+    <div class="timer">Time: <span id="time">0</span></div>
+
+    <div class="wrapper">
+      <div id="start-screen" class="start">
+        <h1>Joe's Quiz</h1>
+        <p>
+          Answer the five questions about me within the time
+          limit. Incorrect answers will dock you ten seconds. Your final score is the time you have left on the clock!
+        </p>
+        <button id="start">Start Quiz</button>
+      </div>
+
+      <div id="questions" class="hide">
+        <h2 id="question-title"></h2>
+        <div id="options" class="options"></div>
+      </div>
+
+      <div id="end-screen" class="hide">
+        <h2>Finished!</h2>
+        <p>Your final score is: <span id="final-score"></span>.</p>
+        <p>
+          Enter your initials: <input type="text" id="initials" max="3" />
+          <button id="submit">Submit</button>
+        </p>
+      </div>
+
+      <div id="feedback" class="feedback hide"></div>
+    </div>
+<!--Links to js files-->
+    <script src="./assets/js/questions.js"></script>
+    <script src="./assets/js/logic.js"></script>
+  </body>
 </html>
