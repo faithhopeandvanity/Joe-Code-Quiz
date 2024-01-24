@@ -9,9 +9,9 @@ var viewHighScores = document.getElementById("high-scores-link");
 var submitButton = document.getElementById("submit");
 var clearScoreButton = document.getElementById("clearHSBtn");
 //fix next line?
-var initialsField = document.getElementById("player-name");
+var initialsField = document.getElementById("players-name");
 var restartButton = document.getElementById("backBtn");
-var scoreField = document.getElementById("player-score");
+var scoreField = document.getElementById("players-score");
 var scores = JSON.parse(localStorage.getItem("scores")) || [];
 var timerEl = document.getElementById("timer");
 var timeLeft = 75;
