@@ -85,8 +85,8 @@ function endQuiz() {
     clearInterval(timeInterval);
     const endScreen = document.querySelector("#end-screen");
     endScreen.removeAttribute("class");
-    const finalScore = document.querySelector("#final-score");
-    finalScore.textContent = timerCount;
+    const getFinalScore = document.querySelector("#final-score");
+    getgetFinalScore.textContent = timerCount;
     questionsId.setAttribute("class", "hide");
 }
 
