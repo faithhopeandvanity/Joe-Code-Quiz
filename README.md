@@ -12,3 +12,5 @@ The 'questions' array is contained in the logic.js file.
 
 [Repo](https://github.com/faithhopeandvanity/joe-code-quiz)
 [App](https://faithhopeandvanity.github.io/Joe-Code-Quiz/)
+
+[GIF of gameplay](/gif/joesquiz.gif)
