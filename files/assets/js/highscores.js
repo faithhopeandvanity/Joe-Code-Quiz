@@ -13,7 +13,7 @@ function updateUserScore() {
     highScore.forEach((score) => {
         //Create list item for each score
         let listItems = document.createElement("li");
-        listItems.textContent = score.userInitials + " : " + score.score;
+        listItems.textContent = score.playersInitials + " : " + score.score;
         seeHighScores.appendChild(listItems);
     });
 }
